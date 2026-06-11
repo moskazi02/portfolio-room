@@ -8,6 +8,8 @@ import bed from './assets/fileDetails.png';
 import introCharNeutral from './assets/introCharNeutral.png';
 import introCharTalking from './assets/introCharTalking.png';
 
+
+
 const introDialogues = [
   { text: "Salut moi c'est Mostafa !", charImage: introCharNeutral },
   { text: "Je ne savais pas comment me presenter et montrer mes projets..", charImage: introCharNeutral },
@@ -17,18 +19,19 @@ const introDialogues = [
 
 const projects = [
   { 
-    title: "React App Triathlon", 
-    description: "Application mobile développée dans le cadre d'un projet BTS SIO 2ème année...", 
+    title: "Balatro WikiApp", 
+    description: "Application web complète permettant de consulter toutes les informations sur le jeu de cartes roguelike Balatro. Cette application offre une interface intuitive pour explorer les différentes cartes, jokers, et stratégies du jeu. Développée avec Blazor pour une expérience utilisateur réactive et moderne, elle utilise PostgreSQL pour stocker et gérer efficacement toutes les données du jeu.", 
     image: require('./assets/ton-image-1.png') 
   },
   { 
-    title: "Balatro WikiApp", 
-    description: "Description ici.", 
+    title: "React App Triathlon", 
+    description: "Application mobile développée dans le cadre d'un projet BTS SIO 2ème année...",
     image: require('./assets/ton-image-2.png') 
   }
 ];
 
 function App() {
+  const [isImageVisible, setIsImageVisible] = useState(false);
   const [currentView, setCurrentView] = useState('mainRoom');
   const [projectIndex, setProjectIndex] = useState(null);
   const [isIntroActive, setIsIntroActive] = useState(true);
@@ -97,8 +100,13 @@ function App() {
 
           {/* 3. BED VIEW */}
           {currentView === 'bed' && (
+            <>
             <div className="back-hotspot" style={{ position: 'absolute', bottom: '5%', left: '45%', width: '10%', height: '15%' }} 
                  onClick={() => setCurrentView('mainRoom')} />
+            <div className="hotspot" style={{bottom: '20%', left: '55%', width: '25%', height: '65%' }} 
+                 onClick={() =>  setIsImageVisible(true)}/>
+            </>
+                 
           )}
 
           {/* POP-UP PROJET */}
@@ -115,6 +123,10 @@ function App() {
                 <button className="nav-arrow right" onClick={() => changeProject(1)}>▶</button>
               </div>
             </div>
+          )}
+
+          {isImageVisible && (
+            <img src={require('./assets/cv.png')} alt="Description" className="mon-image-popup" onClick={() => setIsImageVisible(false)} />
           )}
         </>
       )}
